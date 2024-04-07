@@ -8,4 +8,10 @@ CREATE TABLE IF NOT EXISTS  Customer
     Lastname VARCHAR(20)
 );
 
-SELECT *FROM Customer
+SELECT *FROM Customer;
+
+mobile_phones SELECT * FROM itresume9698590.mobile_phones;
+
+
+
+ 
