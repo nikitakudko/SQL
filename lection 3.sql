@@ -55,3 +55,27 @@ ORDER BY Units DESC;
 
 SELECT * FROM mobile_phones
 ORDER BY price;
+
+SELECT COUNT(*) AS sum
+FROM mobile_phones;
+
+SELECT *FROM mobile_phones
+LIMIT 5;
+
+SELECT MIN(price) FROM mobile_phones
+WHERE manufacturer = 'Apple';
+
+SELECT 
+	MIN(price), 
+    MAX(price), 
+    AVG(price) 
+FROM mobile_phones
+WHERE manufacturer = 'Samsung';
+
+SELECT manufacturer, COUNT(*) AS Models
+FROM mobile_phones
+WHERE price > 40000
+GROUP BY manufacturer;
+
+
+
