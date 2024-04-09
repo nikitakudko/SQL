@@ -77,7 +77,7 @@ FROM marks;
 
 SELECT IF(1000<200, 'YES', 'NO') AS Result;
 
-SELECT total_marks,
-	IF (total_marks>450, 'Отлично', 'Хорошо')
-    AS res
-FROM marks 
+	SELECT total_marks,
+		IF (total_marks>450, 'Отлично', 'Хорошо')
+		AS res
+	FROM marks 
