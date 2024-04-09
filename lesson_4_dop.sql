@@ -209,3 +209,20 @@ INSERT INTO `profiles` (user_id, gender, birthday, photo_id, hometown) VALUES
 (8, 'f', '1975-03-26', 17, 'Howeside'),
 (9, 'f', '1982-11-01', 9, 'Loweborough'),
 (10, 'm', '1977-05-14', NULL, 'New Nellaside'); 
+
+SELECT * FROM media;
+UPDATE media
+SET created_at = '1991-11-16 08:23:00'
+WHERE id = 1;
+
+UPDATE media
+SET created_at = '1991-11-16 08:23:00'
+WHERE id = 2;
+
+SELECT 
+	COUNT(id) AS count_media,
+    MONTHNAME(created_at) AS month_name,
+    MONTH(created_at) AS month_number
+FROM media
+GROUP BY created_at
+ORDER BY month_number DESC;

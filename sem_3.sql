@@ -49,3 +49,20 @@ FROM staff
 WHERE post != 'Уборщик'
 GROUP BY post
 HAVING AVG(salary) > 25000;
+
+SELECT 
+    COUNT(post) AS `count`
+FROM staff
+WHERE post = 'Рабочий' AND age >= 24;
+
+SELECT 
+	COUNT(DISTINCT post) AS count
+FROM staff;
+
+
+SELECT 
+	post,
+    ROUND(AVG(age)) AS `средний возраст`
+FROM staff
+GROUP BY post
+HAVING AVG(age) <= 30;
