@@ -39,14 +39,13 @@ ORDER BY last_name DESC, first_name;
 
 -- Группировка 
 
-SELECT
-	post,
-    MIN(salary) AS `min`,
+SELECT 
+	MIN(salary) AS `min`,
     MAX(salary) AS `max`,
-    ROUND(ANG(salary), 2) AS `avg_salary`,
+    ROUND(AVG(salary), 2) AS `avg_salary`,
     MAX(salary) - MIN(salary) AS `diff`,
     COUNT(salary) AS `count`
 FROM staff
+WHERE post != 'Уборщик'
 GROUP BY post
-
- 
+HAVING AVG(salary) > 25000;
