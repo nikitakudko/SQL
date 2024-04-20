@@ -226,3 +226,98 @@ SELECT
 FROM media
 GROUP BY created_at
 ORDER BY month_number DESC;
+
+-- Выборка данный по пользователю: ФИО, город, название фотографии 
+SELECT
+	u.firstname,
+    u.lastname,
+    p.hometown AS city,
+    m.filename AS foro_name
+FROM users u 
+JOIN `profiles` p ON u.id =  p.user_id
+JOIN media m ON p.photo_id = m.id;
+
+-- Выборка данный по пользователю: ФИО, город, файла
+SELECT
+	u.firstname,
+    u.lastname,
+    p.hometown AS city,
+    m.filename AS foro_name
+FROM users u 
+JOIN `profiles` p ON u.id =  p.user_id
+JOIN media m ON u.id = m.user_id;
+
+-- Выборка данный по пользователю: ФИО, город, файла
+SELECT
+	u.firstname,
+    u.lastname,
+    p.hometown AS city,
+    m.filename AS foro_name,
+    mt.*
+FROM users u 
+JOIN `profiles` p ON u.id =  p.user_id
+JOIN media m ON u.id = m.user_id
+JOIN media_types mt ON mt.id = m.media_type_id
+WHERE mt.id = (SELECT id FROM media_types WHERE name_type = 'Photo');
+
+-- Список медиафайлов конкретного человека с кол-вом лайков
+-- 
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+SELECT 
+	u.firstname,
+    u.lastname,
+    m.filename AS media_name,
+    COUNT(l.id) AS total_likes
+FROM media m
+JOIN users u ON u.id = m.user_id
+JOIN likes l ON l.media_id = m.id
+GROUP BY m.filename 
+ORDER BY total_likes DESC;
+
+-- Задача 1
+
+SELECT 
+    p.gender,
+    COUNT(l.id) 
+FROM profiles p
+JOIN media m ON m.user_id = p.user_id
+JOIN likes l ON l.media_id = m.id;
+
+-- Задача 2
+
+SELECT
+	IF(p.gender = 'f', 'женский', 'мужской') AS gender,
+    COUNT(l.id) cnt
+FROM profiles p
+JOIN likes l ON l.user_id = p.user_id
+GROUP BY p.gender;
+
+-- Задача 3
+SELECT
+    p.user_id
+    -- mes.created_at
+FROM profiles p
+LEFT JOIN messages mes ON mes.from_user_id = p.user_id
+WHERE mes.created_at IS NULL;
+
+-- Задача 4
+
+SELECT * FROM lesson_4.friend_requests;
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+SELECT
+    u.id,
+    u.firstname,
+    u.lastname,
+    COUNT(f.status) AS cnt
+FROM users u
+LEFT JOIN friend_requests f ON  (u.id = f.initiator_user_id OR u.id = f.target_user_id)  AND f.status = 'approved'
+GROUP BY u.id
+ORDER BY u.id
+
+
+
+
+
+
+
+
