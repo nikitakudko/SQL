@@ -219,3 +219,21 @@ INSERT INTO `profiles` (user_id, gender, birthday, photo_id, hometown) VALUES
 -- UPDATE profiles
 -- SET hometown = 'Adriannaport'
 -- WHERE birthday < '1990-01-01';
+
+UPDATE profiles
+	SET hometown = 'Adriannaport'
+WHERE birthday < '1990-01-01';
+
+DROP PROCEDURE IF EXISTS friendship_by_town;
+DELIMITER //
+CREATE PROCEDURE friendship_by_town(for_user_id INT)
+BEGIN
+	SELECT p2.user_id
+	FROM profiles p1
+	JOIN profiles p2 ON p1.hometown = p2.hometown
+	WHERE p1.user_id = for_user_id AND p2.user_id <> for_user_id
+    ORDER BY rand()
+    LIMIT 5;
+END//
+
+CALL friendship_by_town(1);
